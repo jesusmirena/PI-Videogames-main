@@ -27,13 +27,13 @@ export default function Detail(props) {
             }
             alt=""
           />
-          {/* <p>{videogameDetail.description.replace(/(<([^>]+)>)/gi, "")}</p> */}
-          {/* <p>{`Genres: ${videogameDetail.genres.join(", ")}`}</p> */}
-          {/* <p>{`Platforms: ${
+          <p>{videogameDetail.description_raw || videogameDetail.description}</p>
+          <p>{`Genres: ${videogameDetail.genres?.map((g) => g.name).join(", ")}`}</p>
+          <p>{`Platforms: ${
             typeof videogameDetail.platforms === "string"
               ? videogameDetail.platforms
-              : videogameDetail.platforms.join(", ")
-          }`}</p> */}
+              : videogameDetail.platforms?.map((p) => p.platform.name).join(", ")
+          }`}</p>
           <p>{`Release Date: ${videogameDetail.releaseDate || "None"}`}</p>
           <p>{`Rating: ★ ${videogameDetail.rating}`}</p>
         </div>
