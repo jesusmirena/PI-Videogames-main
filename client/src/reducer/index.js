@@ -4,6 +4,7 @@ const initialState = {
   platforms: [],
   videogameDetail: [],
   genres: [],
+  swap: true,
 };
 
 function rootReducer(state = initialState, action) {
@@ -19,39 +20,96 @@ function rootReducer(state = initialState, action) {
         ...state,
         genres: action.payload,
       };
+    case "GET_PLATFORMS":
+      return {
+        ...state,
+        platforms: action.payload,
+      };
     case "POST_VIDEOGAME": {
       return {
         ...state,
       };
     }
-    case "FILTER_BY":
-      const allvideogames = state.allvideogames;
-      const filtered =
-        action.payload === "All"
-          ? allvideogames
-          : allvideogames.filter((v) => v.genres);
-      return {
-        ...state,
-        videogames: filtered,
-      };
+    case "FILTER_BY_GENRE":
+      // state.swap = false;
+      if ((state.swap = true)) {
+        const filtrado =
+          action.payload === "All"
+            ? state.allvideogames
+            : state.videogames.filter((g) => {
+                return g.genres.find((g) => {
+                  return g.name === action.payload;
+                });
+              });
+        state.swap = false;
+        return {
+          ...state,
+          videogames: filtrado,
+        };
+      } else {
+        const filtrado =
+          action.payload === "All"
+            ? state.allvideogames
+            : state.allvideogames.filter((g) => {
+                return g.genres.find((g) => {
+                  return g.name === action.payload;
+                });
+              });
+        state.swap = true;
+        return {
+          ...state,
+          videogames: filtrado,
+        };
+      }
+    // case "FILTER_BY_PLATFORM": //ARREGLAR!!!!!!!!!!!!!!!
+    //     const filtrados =
+    //       action.payload === "All"
+    //         ? state.allvideogames
+    //         : state.allvideogames.filter((g) => {
+    //             return g.platforms?.find((g) => {
+    //               return g.name === action.payload;
+    //             });
+    //           });
+    //     return {
+    //       ...state,
+    //       videogames: filtrados,
+    //     };
+    case "FILTER_CREATED":
+      if (state.swap === false) {
+        const createdFilter =
+          action.payload === "Created"
+            ? state.videogames.filter((v) => v.id.length > 10)
+            : state.videogames.filter((v) => v.id.toString().length < 6);
+        state.swap = true;
+        return {
+          ...state,
+          videogames:
+            action.payload === "All" ? state.allvideogames : createdFilter,
+        };
+      } else {
+        const createdFilter =
+          action.payload === "Created"
+            ? state.allvideogames.filter((v) => v.id.length > 10)
+            : state.allvideogames.filter((v) => v.id.toString().length < 6);
+        state.swap = false;
+        return {
+          ...state,
+          videogames:
+            action.payload === "All" ? state.allvideogames : createdFilter,
+        };
+      }
     case "GET_NAME_VIDEOGAMES":
+      if (action.payload.hasOwnProperty("alert")) {
+        return alert("Your game hasn't been found");
+      }
       return {
         ...state,
         videogames: action.payload,
       };
-      case "GET_VIDEOGAME_DETAIL": return {
-        ...state,
-        videogameDetail: action.payload
-    }
-    case "FILTER_CREATED":
-      const createdFilter =
-        action.payload === "Created"
-          ? state.allvideogames.filter((v) => v.id.length > 10)
-          : state.allvideogames.filter((v) => v.id.toString().length < 6);
+    case "GET_VIDEOGAME_DETAIL":
       return {
         ...state,
-        videogames:
-          action.payload === "All" ? state.allvideogames : createdFilter,
+        videogameDetail: action.payload,
       };
     case "ORDER_BY_NAME":
       let arraySort =
@@ -74,6 +132,7 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
+            console.log(state.videogames[0]);
       return {
         ...state,
         videogames: arraySort,

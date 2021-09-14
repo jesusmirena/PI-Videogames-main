@@ -2,7 +2,7 @@ const axios = require("axios");
 const { Router } = require("express");
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Videogame, Genre } = require("../db");
+const { Videogame, Genre, Platforms } = require("../db");
 
 const router = Router();
 
@@ -11,6 +11,7 @@ const getApiInfo = async () => {
     `https://api.rawg.io/api/games?key=${API_KEY}`
   );
   const apiInfo = await apiUrl.data.results.map((v) => {
+    const plataformas = v.platforms.map(g => g.platform)
     return {
       id: v.id,
       name: v.name,
@@ -18,7 +19,7 @@ const getApiInfo = async () => {
       description: v.description,
       released: v.released,
       rating: v.rating,
-      platforms: v.platforms,
+      platforms: plataformas,
       genres: v.genres,
     };
   });
@@ -53,12 +54,31 @@ router.get("/videogames", async (req, res) => {
     );
     videogameName.length
       ? res.status(200).send(videogameName)
-      : res.status(404).send("No se ha encontrado el videojuego");
+      : res.status(200).json({ alert: "Your game hasn't been found" });
   } else {
     res.status(200).send(allVideogames);
   }
 });
 
+router.get("/platforms", async (req, res) => {
+  try {
+    const platformsApi = await axios.get(
+      `https://api.rawg.io/api/platforms?key=${API_KEY}`
+    );
+    const plataformas = platformsApi.data.results;
+    plataformas.forEach(async(v)=>{
+      await Platforms.findOrCreate({
+        where: {
+          name: v.name,
+        }
+      })
+    })
+    const platformsDataBase = await Platforms.findAll();
+    res.json(platformsDataBase);
+  } catch (err) {
+    res.send(err);
+  }
+});
 //Genres
 
 router.get("/genres", async (req, res) => {
@@ -80,21 +100,19 @@ router.get("/genres", async (req, res) => {
 //videogame
 
 router.post("/videogame", async (req, res) => {
-  let { name, description, releaseDate, rating, platforms, genres } = req.body;
-
+  let { name, description, released, rating, platforms, genres } = req.body;
   let createVideogame = await Videogame.create({
     name,
     description,
-    releaseDate,
+    released,
     rating,
     platforms,
   });
-
   let DbGenre = await Genre.findAll({
     where: { name: genres },
   });
   createVideogame.addGenres(DbGenre);
-  res.status(200).send("El videojuego se ha creado exitosamente");
+  res.status(200).send(createVideogame);
 });
 
 router.get("/videogame/:id", async (req, res) => {

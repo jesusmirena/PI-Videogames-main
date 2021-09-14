@@ -49,12 +49,13 @@ export function postVideogames(payload) {
   };
 }
 
-export function filterVideogamesBy(payload) {
+export function filterByGenre(payload) {
   return {
-    type: "FILTER_BY",
+    type: "FILTER_BY_GENRE",
     payload,
   };
 }
+
 export function filterCreated(payload) {
   return {
     type: "FILTER_CREATED",
@@ -70,6 +71,18 @@ export function orderByName(payload) {
 export function orderByRating(payload) {
   return {
     type: "ORDER_BY_RATING",
+    payload,
+  };
+}
+export function getPlatforms(){
+	return async function(dispatch){
+		const json = await axios.get(`http://localhost:3001/platforms`);
+		return dispatch({type: "GET_PLATFORMS", payload: json.data});
+	}
+}
+export function filterByPlatform(payload) {
+  return {
+    type: "FILTER_BY_PLATFORM",
     payload,
   };
 }

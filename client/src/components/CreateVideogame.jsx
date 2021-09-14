@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getGenres, postVideogames } from "../actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
+import styles from "./_CreateVideogame.module.scss";
 
 function validate(input) {
-  let errors = {};
-  if (!input.name) {
+  const errors = {};
+  if (!input.name.trim()) {
     errors.name = "A name is required";
   }
-  if (!input.description) {
+  if (!input.description.trim()) {
     errors.description = "A description is required";
   }
-  if (!input.released) {
+  if (!input.released.trim()) {
     errors.released = "The release date is required";
   }
   return errors;
@@ -27,7 +28,7 @@ export default function CreateVideogame() {
     description: "",
     released: "",
     rating: "",
-    platforms: [],
+    platforms: "",
     genres: [],
   });
 
@@ -39,14 +40,15 @@ export default function CreateVideogame() {
   }
 
   function handleChange(e) {
+    const { name, value } = e.target;
     setInput({
       ...input,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
     setErrors(
       validate({
         ...input,
-        [e.target.name]: e.target.value,
+        [name]: value,
       })
     );
   }
@@ -54,7 +56,7 @@ export default function CreateVideogame() {
     if (e.target.checked) {
       setInput({
         ...input,
-        platforms: e.target.value,
+        platforms: e.target.value + ", " + input.platforms,
       });
     }
   }
@@ -66,16 +68,27 @@ export default function CreateVideogame() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postVideogames(input));
-    alert("Your videogames has been created");
-    setInput({
-      name: "",
-      description: "",
-      released: "",
-      rating: "",
-      platforms: [],
-      genres: [],
-    });
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
+    if (Object.keys(errors).length === 0) {
+      dispatch(postVideogames(input));
+      alert("Your videogame has been created");
+      setInput({
+        name: "",
+        description: "",
+        released: "",
+        rating: "",
+        platforms: [],
+        genres: [],
+      });
+    } else {
+      alert("Your videogame couldn't be created");
+      return;
+    }
   }
 
   useEffect(() => {
@@ -85,13 +98,22 @@ export default function CreateVideogame() {
   return (
     <div>
       <Link to="/home">
-        <button>Back</button>
+        <button className={styles.buttonBack}>Back</button>
       </Link>
+      <main  className={styles.container}>
       <h1>Create your own videogame</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label htmlFor="">Name</label>
+
+      
+      <div className={styles.formBgImg}></div>
+
+      <form className={styles.form} onSubmit={(e) => handleSubmit(e)}>
+        <div className={styles.formDiv}>
+          <label className={styles.formLabel} htmlFor="">
+            Name
+          </label>
           <input
+            required
+            className={styles.formInput}
             type="text"
             name="name"
             value={input.name}
@@ -99,19 +121,25 @@ export default function CreateVideogame() {
           />
           {errors.name && <h4>{errors.name}</h4>}
         </div>
-        <div>
-          <label htmlFor="">Description</label>
+        <div className={styles.formDiv}>
+          <label className={styles.formLabel} htmlFor="">
+            Description
+          </label>
           <textarea
-            type="textarea"
+            className={`${styles.formInput} ${styles.formInputTextarea}`}
+            type="text"
             name="description"
             value={input.description}
             onChange={(e) => handleChange(e)}
-          ></textarea>
+          />
           {errors.description && <h4>{errors.description}</h4>}
         </div>
-        <div>
-          <label htmlFor="">Release date</label>
+        <div className={styles.formDiv}>
+          <label className={styles.formLabel} htmlFor="">
+            Release date
+          </label>
           <input
+            className={styles.formInput}
             type="date"
             name="released"
             value={input.released}
@@ -119,9 +147,12 @@ export default function CreateVideogame() {
           />
           {errors.released && <h4>{errors.released}</h4>}
         </div>
-        <div>
-          <label htmlFor="">Rating</label>
+        <div className={styles.formDiv}>
+          <label className={styles.formLabel} htmlFor="">
+            Rating
+          </label>
           <input
+            className={styles.formInput}
             type="number"
             name="rating"
             value={input.rating}
@@ -130,7 +161,8 @@ export default function CreateVideogame() {
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <div>
+        <div className={styles.formDiv}>
+          <label className={styles.formLabel}> Platforms:</label>
           <label>
             <input
               onChange={(e) => handleCheckbox(e)}
@@ -177,7 +209,7 @@ export default function CreateVideogame() {
             PS4
           </label>
         </div>
-        <div>
+        <div className={styles.formDiv}>
           <select onChange={(e) => handleSelect(e)} name="genres">
             <option selected={true} disabled="disabled" value="">
               Choose a genre
@@ -190,14 +222,15 @@ export default function CreateVideogame() {
               ))}
           </select>
         </div>
-      {input.genres.map((g) => (
-        <div>
-          <p>{g}</p>
-          <button onClick={() => handleDelete(g)}>X</button>
-        </div>
-      ))}
-        <button type="submit">Create Videogame</button>
+        {input.genres.map((g) => (
+          <div>
+            <p>{g}</p>
+            <button onClick={() => handleDelete(g)}>X</button>
+          </div>
+        ))}
+        <button className={styles.button} type="submit">Create Videogame</button>
       </form>
+      </main>
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import '@testing-library/jest-dom'
+import Header from './components/header/header';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Header', () => {
+  it("Must display a title", ()=>{
+    render(<Header />);
+    expect(screen.getByText(/Discover all the games/i)).toBeInTheDocument();
+  })
 });
