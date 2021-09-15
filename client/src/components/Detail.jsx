@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideogameDetail } from "../actions/index";
 import styles from "./Detail.module.scss";
@@ -20,13 +20,12 @@ export default function Detail(props) {
         <button className={styles.buttonBack}>Back</button>
       </Link>
       {videogameDetail ? (
-        <div  className={styles.detailsContainer}>
-          
+        <div className={styles.detailsContainer}>
           <img
-          className={`${styles.col} ${styles.videogameImage}`}
+            className={`${styles.col} ${styles.videogameImage}`}
             src={
               videogameDetail.background_image ||
-              "https://myvideogamelist.com/assets/images/default.png"
+              "https://m.media-amazon.com/images/I/611fcGzpVUL.jpg"
             }
             alt=""
           />
@@ -44,10 +43,9 @@ export default function Detail(props) {
             </p>
             <p>
               <strong>Platforms:</strong>
-              {typeof videogameDetail.platforms === "string"
-                ? videogameDetail.platforms.replace(/,\s*$/, "")
-                : videogameDetail.platforms
-                    ?.map((p) => p.platform.name)
+              {videogameDetail.id?.length > 7
+                ? videogameDetail.platforms?.map((p) => p.name).join(", ")
+                : videogameDetail.platforms?.map((p) => p.platform.name)
                     .join(", ")}
             </p>
             <p>
@@ -60,7 +58,7 @@ export default function Detail(props) {
           </div>
         </div>
       ) : (
-        <Spinner/>
+        <Spinner />
       )}
     </div>
   );

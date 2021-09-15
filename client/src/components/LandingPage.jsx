@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import fondo from "./video/fondo.mp4";
+import styles from "./LandingPage.module.scss"
 export default function LandingPage() {
   return (
     <div>
@@ -17,10 +18,12 @@ export default function LandingPage() {
       }}>
         <source src={fondo} type="video/mp4" />
       </video>
-      <h1>Do you wanna play a game?</h1>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Do you wanna play a game?</h1>
       <Link to="/home">
-        <button>Let's go</button>
+        <button className={styles.buttons}>Let's go</button>
       </Link>
+      </div>
     </div>
   );
 }

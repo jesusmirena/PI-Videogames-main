@@ -13,12 +13,12 @@ import {
 } from "../actions";
 import { Link } from "react-router-dom";
 import Videogame from "./Videogame";
-import Paging from "./Paging";
 import SearchBar from "./SearchBar";
 import imagen from "../../../videogame.png";
 import Header from "./header/header";
 import Navbar from "./navBar/Navbar";
 import styles from "./VideogamesGrid.module.scss";
+import Pagination from "./Pagination";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ export default function Home() {
     dispatch(getGenres());
     dispatch(getPlatforms());
   }, []);
-  const paging = (pageNumber) => {
+  const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
   useEffect(() => {
@@ -85,14 +85,6 @@ export default function Home() {
   return (
     <div>
       <Header title="New and trending" />
-      <Link to="/Createvideogame">Crear un Videojuego</Link>
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        Mostrar todos los videojuegos
-      </button>
       <div>
         <Navbar
           handleFilterGenre={handleFilterGenre}
@@ -102,10 +94,10 @@ export default function Home() {
           handleSortByRating={handleSortByRating}
         />
         <SearchBar />
-        <Paging
+        <Pagination
           videogamesPerPage={videogamesPerPage}
           allVideogames={allVideogames.length}
-          paging={paging}
+          pagination={pagination}
         />
         <ul className={styles.videogameGrid}>
           {currentVideogames &&
@@ -123,10 +115,10 @@ export default function Home() {
               );
             })}
         </ul>
-        <Paging
+        <Pagination
           videogamesPerPage={videogamesPerPage}
           allVideogames={allVideogames.length}
-          paging={paging}
+          pagination={pagination}
         />
       </div>
     </div>

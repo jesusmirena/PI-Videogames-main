@@ -99,9 +99,6 @@ function rootReducer(state = initialState, action) {
         };
       }
     case "GET_NAME_VIDEOGAMES":
-      if (action.payload.hasOwnProperty("alert")) {
-        return alert("Your game hasn't been found");
-      }
       return {
         ...state,
         videogames: action.payload,
@@ -132,7 +129,6 @@ function rootReducer(state = initialState, action) {
               }
               return 0;
             });
-            console.log(state.videogames[0]);
       return {
         ...state,
         videogames: arraySort,

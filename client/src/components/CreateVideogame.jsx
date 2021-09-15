@@ -21,6 +21,7 @@ function validate(input) {
 export default function CreateVideogame() {
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
+  const platforms = useSelector((state) => state.platforms);
   const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
@@ -28,7 +29,7 @@ export default function CreateVideogame() {
     description: "",
     released: "",
     rating: "",
-    platforms: "",
+    platforms: [],
     genres: [],
   });
 
@@ -36,6 +37,12 @@ export default function CreateVideogame() {
     setInput({
       ...input,
       genres: input.genres.filter((g) => g !== e),
+    });
+  }
+  function handleDeletePlatform(e) {
+    setInput({
+      ...input,
+      platforms: input.platforms.filter((p) => p !== e),
     });
   }
 
@@ -52,13 +59,11 @@ export default function CreateVideogame() {
       })
     );
   }
-  function handleCheckbox(e) {
-    if (e.target.checked) {
-      setInput({
-        ...input,
-        platforms: e.target.value + ", " + input.platforms,
-      });
-    }
+  function handleSelectPlatform(e) {
+    setInput({
+      ...input,
+      platforms: [...input.platforms, e.target.value],
+    });
   }
   function handleSelect(e) {
     setInput({
@@ -162,52 +167,23 @@ export default function CreateVideogame() {
           />
         </div>
         <div className={styles.formDiv}>
-          <label className={styles.formLabel}> Platforms:</label>
-          <label>
-            <input
-              onChange={(e) => handleCheckbox(e)}
-              type="checkbox"
-              name="platforms"
-              value="PS5"
-            />
-            PS5
-          </label>
-          <label>
-            <input
-              name="platforms"
-              onChange={(e) => handleCheckbox(e)}
-              type="checkbox"
-              value="Nintendo"
-            />
-            Nintendo
-          </label>
-          <label>
-            <input
-              name="platforms"
-              onChange={(e) => handleCheckbox(e)}
-              type="checkbox"
-              value="Pc"
-            />
-            PC
-          </label>
-          <label>
-            <input
-              name="platforms"
-              onChange={(e) => handleCheckbox(e)}
-              type="checkbox"
-              value="Xbox"
-            />
-            Xbox
-          </label>
-          <label>
-            <input
-              name="platforms"
-              onChange={(e) => handleCheckbox(e)}
-              type="checkbox"
-              value="PS4"
-            />
-            PS4
-          </label>
+        <select onChange={(e) => handleSelectPlatform(e)}>
+          {platforms.map((v) => (
+            <option value={v.name}>{v.name}</option>
+          ))}
+        </select>
+
+        {input.platforms.map((g) => (
+          <div >
+            <p>{g}</p>
+            <button
+              
+              onClick={() => handleDeletePlatform(g)}
+            >
+              X
+            </button>
+          </div>
+          ))}
         </div>
         <div className={styles.formDiv}>
           <select onChange={(e) => handleSelect(e)} name="genres">

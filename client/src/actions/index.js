@@ -23,7 +23,7 @@ export function getNameVideogames(name) {
         payload: namesData.data,
       });
     } catch (error) {
-      console.log(error);
+      alert("The videogame hasn't been found :(");
     }
   };
 }

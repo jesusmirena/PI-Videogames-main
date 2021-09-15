@@ -7,10 +7,10 @@ export default function Videogame({ name, img, genres, id, rating, platforms }) 
   let plataformas = platforms?.map((p) => p.name)
                     
   return (
-    <li  className={styles.Videogame}>
+    <li id={id} className={styles.Videogame}>
         <div className={`${styles.cardItem} ${styles.CardItemUniqueEffect}`}>
           <img
-            src={img}
+            src={img || "https://m.media-amazon.com/images/I/611fcGzpVUL.jpg"}
             alt="Image not found"
           />
           <div className={styles.Content}>

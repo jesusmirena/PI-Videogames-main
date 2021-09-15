@@ -2,16 +2,36 @@ const axios = require("axios");
 const { Router } = require("express");
 require("dotenv").config();
 const { API_KEY } = process.env;
-const { Videogame, Genre, Platforms } = require("../db");
+const { Videogame, Genre, Platform } = require("../db");
 
 const router = Router();
 
 const getApiInfo = async () => {
-  const apiUrl = await axios.get(
+  var games = [];
+  const apiUrl1 = await axios.get(
     `https://api.rawg.io/api/games?key=${API_KEY}`
   );
-  const apiInfo = await apiUrl.data.results.map((v) => {
-    const plataformas = v.platforms.map(g => g.platform)
+  const apiUrl2 = await axios.get(
+    `https://api.rawg.io/api/games?key=${API_KEY}&page=2`
+  );
+  const apiUrl3 = await axios.get(
+    `https://api.rawg.io/api/games?key=${API_KEY}&page=3`
+  );
+  const apiUrl4 = await axios.get(
+    `https://api.rawg.io/api/games?key=${API_KEY}&page=4`
+  );
+  const apiUrl5 = await axios.get(
+    `https://api.rawg.io/api/games?key=${API_KEY}&page=5`
+  );
+  games = apiUrl1.data.results.concat(
+    apiUrl2.data.results,
+    apiUrl3.data.results,
+    apiUrl4.data.results,
+    apiUrl5.data.results
+  );
+
+  const apiInfo = await games.map((v) => {
+    const plataformas = v.platforms.map((g) => g.platform);
     return {
       id: v.id,
       name: v.name,
@@ -28,13 +48,7 @@ const getApiInfo = async () => {
 
 const getDbInfo = async () => {
   return await Videogame.findAll({
-    include: {
-      model: Genre,
-      attributes: ["id", "name"],
-      through: {
-        attributes: [],
-      },
-    },
+    include: [Genre, Platform],
   });
 };
 
@@ -54,7 +68,7 @@ router.get("/videogames", async (req, res) => {
     );
     videogameName.length
       ? res.status(200).send(videogameName)
-      : res.status(200).json({ alert: "Your game hasn't been found" });
+      : res.status(404).send("Your game hasn't been found");
   } else {
     res.status(200).send(allVideogames);
   }
@@ -66,14 +80,14 @@ router.get("/platforms", async (req, res) => {
       `https://api.rawg.io/api/platforms?key=${API_KEY}`
     );
     const plataformas = platformsApi.data.results;
-    plataformas.forEach(async(v)=>{
-      await Platforms.findOrCreate({
+    plataformas.forEach(async (v) => {
+      await Platform.findOrCreate({
         where: {
           name: v.name,
-        }
-      })
-    })
-    const platformsDataBase = await Platforms.findAll();
+        },
+      });
+    });
+    const platformsDataBase = await Platform.findAll();
     res.json(platformsDataBase);
   } catch (err) {
     res.send(err);
@@ -106,18 +120,20 @@ router.post("/videogame", async (req, res) => {
     description,
     released,
     rating,
-    platforms,
   });
   let DbGenre = await Genre.findAll({
     where: { name: genres },
   });
+  let dbPlatform = await Platform.findAll({
+    where: { name: platforms },
+  });
   createVideogame.addGenres(DbGenre);
+  createVideogame.addPlatforms(dbPlatform);
   res.status(200).send(createVideogame);
 });
 
 router.get("/videogame/:id", async (req, res) => {
   const { id } = req.params;
-
   try {
     if (id.length < 10) {
       const game = await axios.get(
@@ -130,11 +146,7 @@ router.get("/videogame/:id", async (req, res) => {
         where: {
           id: id,
         },
-        include: {
-          model: Genre,
-          attributes: ["name"],
-          through: { attributes: [] },
-        },
+        include: [Genre, Platform],
       });
       return res.json(dbGame);
     }

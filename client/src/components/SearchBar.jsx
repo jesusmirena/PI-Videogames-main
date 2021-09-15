@@ -16,6 +16,7 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getNameVideogames(name));
+    setName("")
   }
 
   return (
@@ -28,6 +29,7 @@ export default function SearchBar() {
           <input
             className={styles.searchInput}
             type="text"
+            value={name}
             onChange={(e) => handleChange(e)}
             placeholder="Search..."
           />

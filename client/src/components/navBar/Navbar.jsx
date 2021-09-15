@@ -1,14 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  filterByGenre,
-  filterCreated,
-  getGenres,
-  orderByName,
-  orderByRating,
-  getPlatforms,
-  filterByPlatform,
-} from "../../actions";
+import { useState } from "react";
+import {useSelector } from "react-redux";
 import styles from "./navBar.module.scss";
 import Dropdown from "./Dropdown";
 import { GrMenu } from "react-icons/gr";
@@ -22,8 +13,8 @@ export default function Navbar({
   handleSortByRating,
 }) {
   const genres = useSelector((state) => state.genres);
-  const platforms = useSelector((state) => state.platforms);
-  const [click, setClick] = useState(false);
+  const allPlatforms = useSelector((state) => state.platforms);
+  // const [click, setClick] = useState(false);
 
   // function handleClick() {
   //   setClick(!click);
@@ -95,12 +86,8 @@ export default function Navbar({
               </option>
             ))}
         </select>
-        <select
-          className={styles.filters}
-          onChange={(e) => handleFilterPlatform(e)}
-          name="platforms"
-        >
-          <option
+        <select className={styles.filters} onChange={(e) => handleFilterPlatform(e)}>
+        <option
             className={styles.options}
             selected={true}
             disabled="disabled"
@@ -111,17 +98,12 @@ export default function Navbar({
           <option className={styles.options} value="All">
             Todos
           </option>
-          {platforms &&
-            platforms.map((platform) => (
-              <option
-                className={styles.options}
-                key={platform.id}
-                value={platform.name}
-              >
-                {platform.name}
-              </option>
-            ))}
-        </select>
+        {allPlatforms.map((platform) => (
+          <option className={styles.options} key={platform.name} value={platform.name}>
+            {platform.name}
+          </option>
+        ))}
+      </select>
         <select
           className={styles.filters}
           onChange={(e) => handleFilterCreated(e)}
