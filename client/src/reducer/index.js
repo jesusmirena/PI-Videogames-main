@@ -61,19 +61,19 @@ function rootReducer(state = initialState, action) {
           videogames: filtrado,
         };
       }
-    // case "FILTER_BY_PLATFORM": //ARREGLAR!!!!!!!!!!!!!!!
-    //     const filtrados =
-    //       action.payload === "All"
-    //         ? state.allvideogames
-    //         : state.allvideogames.filter((g) => {
-    //             return g.platforms?.find((g) => {
-    //               return g.name === action.payload;
-    //             });
-    //           });
-    //     return {
-    //       ...state,
-    //       videogames: filtrados,
-    //     };
+    case "FILTER_BY_PLATFORM": //ARREGLAR!!!!!!!!!!!!!!!
+        const filtrados =
+          action.payload === "All"
+            ? state.allvideogames
+            : state.allvideogames.filter((g) => {
+                return g.platforms?.find((g) => {
+                  return g.name === action.payload;
+                });
+              });
+        return {
+          ...state,
+          videogames: filtrados,
+        };
     case "FILTER_CREATED":
       if (state.swap === false) {
         const createdFilter =
