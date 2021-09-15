@@ -60,3 +60,16 @@
     width: 90%;
     margin: 0 auto;
 }
+.formList{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    p{
+        text-align: right;
+        color: #111111;
+        
+    }
+}
+.formText{
+   
+}

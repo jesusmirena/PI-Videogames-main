@@ -174,8 +174,8 @@ export default function CreateVideogame() {
         </select>
 
         {input.platforms.map((g) => (
-          <div >
-            <p>{g}</p>
+          <div className={styles.formList}>
+            <p className={styles.formText}>{g}</p>
             <button
               
               onClick={() => handleDeletePlatform(g)}
@@ -199,8 +199,8 @@ export default function CreateVideogame() {
           </select>
         </div>
         {input.genres.map((g) => (
-          <div>
-            <p>{g}</p>
+          <div className={styles.formList}>
+            <p className={styles.formText}>{g}</p>
             <button onClick={() => handleDelete(g)}>X</button>
           </div>
         ))}
