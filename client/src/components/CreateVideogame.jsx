@@ -106,7 +106,7 @@ export default function CreateVideogame() {
         <button className={styles.buttonBack}>Back</button>
       </Link>
       <main  className={styles.container}>
-      <h1>Create your own videogame</h1>
+      <h1 className={styles.title} >Create your own videogame</h1>
 
       
       <div className={styles.formBgImg}></div>
@@ -167,6 +167,9 @@ export default function CreateVideogame() {
           />
         </div>
         <div className={styles.formDiv}>
+        <label className={styles.formLabel} htmlFor="">
+            Platforms
+          </label>
         <select onChange={(e) => handleSelectPlatform(e)}>
           {platforms.map((v) => (
             <option value={v.name}>{v.name}</option>
@@ -186,6 +189,9 @@ export default function CreateVideogame() {
           ))}
         </div>
         <div className={styles.formDiv}>
+        <label className={styles.formLabel} htmlFor="">
+            Genres
+          </label>
           <select onChange={(e) => handleSelect(e)} name="genres">
             <option selected={true} disabled="disabled" value="">
               Choose a genre

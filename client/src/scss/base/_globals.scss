@@ -5,17 +5,18 @@
 }
 body {
   font-size: 1rem;
-  background-color: $black;
+  background-color: $white;
 }
 p {
   font-size: 1.2rem;
   font-family: $fuenteParrafos;
+  color: $black;
 }
 a {
   font-family: $fuenteSecundaria;
   text-decoration: none;
 }
-h1, p, a {
+h1, a {
   color: $white;
 }
 img{

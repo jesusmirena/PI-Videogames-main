@@ -1,7 +1,7 @@
 .searchContainer {
   display: flex;
   justify-content: center;
-  padding-top: .8rem;
+  padding-top: 0.8rem;
 }
 
 .searchBox {
@@ -9,14 +9,14 @@
 }
 
 .searchButton {
-background-color: #f88ec2 ;
+  background-color: #ff4f5d;
   position: absolute;
   right: 0;
   top: 0;
   cursor: pointer;
   height: 100%;
-  border-radius: 8px;
-  border: none;
+  border-radius: 6px;
+  border: 1px solid #f88ec2;
 }
 
 .searchInput {
@@ -24,7 +24,7 @@ background-color: #f88ec2 ;
   height: 30px;
   border-radius: 10px;
   padding: 5px 30px 5px 10px;
-  border: 1px solid white;
+  border: 1px solid #ff4f5d;
 }
 
 .searchInput:focus,

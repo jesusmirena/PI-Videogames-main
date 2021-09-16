@@ -80,9 +80,3 @@ export function getPlatforms(){
 		return dispatch({type: "GET_PLATFORMS", payload: json.data});
 	}
 }
-export function filterByPlatform(payload) {
-  return {
-    type: "FILTER_BY_PLATFORM",
-    payload,
-  };
-}

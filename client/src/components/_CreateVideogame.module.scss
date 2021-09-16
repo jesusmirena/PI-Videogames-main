@@ -1,3 +1,6 @@
+.title{
+    color: #111111;
+}
 .formBgImg{
     background-image: url(./video/tomb-raider_0.jpg);
     height: 40rem;
@@ -15,7 +18,7 @@
 }
 .formDiv{
     display: flex;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 .formLabel{
     flex: 0 0 9rem;
@@ -52,8 +55,8 @@
     cursor: pointer;
 }
 .buttonBack{
-    background-color: #ffffff;
-    color: #111111;
+    background-color: #111111;
+    color: #ffffff;
 }
 .container{
     max-width: 120rem;
@@ -63,13 +66,9 @@
 .formList{
     display: flex;
     flex-direction: row;
-    text-align: center;
-    p{
-        text-align: right;
-        color: #111111;
-        
-    }
 }
 .formText{
-   
+    text-align: right;
+        color: #111111;
+        
 }

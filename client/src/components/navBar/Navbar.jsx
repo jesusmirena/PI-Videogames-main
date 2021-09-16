@@ -7,13 +7,11 @@ import { FiX } from "react-icons/fi";
 
 export default function Navbar({
   handleFilterGenre,
-  handleFilterPlatform,
   handleFilterCreated,
   handleSortByName,
   handleSortByRating,
 }) {
   const genres = useSelector((state) => state.genres);
-  const allPlatforms = useSelector((state) => state.platforms);
   // const [click, setClick] = useState(false);
 
   // function handleClick() {
@@ -86,24 +84,6 @@ export default function Navbar({
               </option>
             ))}
         </select>
-        <select className={styles.filters} onChange={(e) => handleFilterPlatform(e)}>
-        <option
-            className={styles.options}
-            selected={true}
-            disabled="disabled"
-            value=""
-          >
-            Choose a platform
-          </option>
-          <option className={styles.options} value="All">
-            Todos
-          </option>
-        {allPlatforms.map((platform) => (
-          <option className={styles.options} key={platform.name} value={platform.name}>
-            {platform.name}
-          </option>
-        ))}
-      </select>
         <select
           className={styles.filters}
           onChange={(e) => handleFilterCreated(e)}

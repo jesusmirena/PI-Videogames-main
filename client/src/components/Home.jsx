@@ -46,13 +46,8 @@ export default function Home() {
   useEffect(() => {
     dispatch(getVideogames());
   }, []);
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(getVideogames());
-  }
-  // function handleClick() {
-  //   setClick(!click);
-  // }
+  
+  
   function handleFilterGenre(e) {
     e.preventDefault();
     dispatch(filterByGenre(e.target.value));
