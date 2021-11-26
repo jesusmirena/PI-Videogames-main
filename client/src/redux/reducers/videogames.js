@@ -1,4 +1,4 @@
-import GET_VIDEOGAMES from "../actions/ActionNames"
+import GET_VIDEOGAMES from "../ActionNames"
 
 const videogameState = {
     allVideogames = []
