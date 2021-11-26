@@ -1,0 +1,45 @@
+.detailsContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.col {
+  max-width: 600px;
+  margin: 15px;
+  height: 400px;
+  width: 80%;
+}
+
+.videogameImage {
+  border-radius: 15px;
+}
+
+.videogameDetails {
+  font-size: 1.5rem;
+}
+
+.firstItem {
+  margin-top: 0;
+}
+.buttonBack{
+  background-color: #111111;
+  display: block;
+  color: #ffffff;
+  text-align: center;
+  padding: .6rem 1.5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border: none;
+}
+@media (min-width: 768px){
+  .button{
+      display:inline-block;
+  }
+}
+.buttonBack:hover{
+  cursor: pointer;
+}
+
