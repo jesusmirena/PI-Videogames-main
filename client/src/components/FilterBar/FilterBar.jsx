@@ -25,13 +25,21 @@ export class FilterBar extends Component {
           <select name="" id="">
             <option value="">---Genre---</option>
             {this.props.genres?.map((genre) => {
-              return <option value={genre.name}>{genre.name}</option>;
+              return (
+                <option key={genre.id} value={genre.name}>
+                  {genre.name}
+                </option>
+              );
             })}
           </select>
           <select name="" id="">
             <option value="">---Platforms---</option>
             {this.props.platforms?.map((platform) => {
-              return <option value={platform.name}>{platform.name}</option>;
+              return (
+                <option key={platform.id} value={platform.name}>
+                  {platform.name}
+                </option>
+              );
             })}
           </select>
         </nav>

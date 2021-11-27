@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Card from "../Card/Card";
 
 class CardsGrid extends Component {
   // constructor(props) {
@@ -11,7 +12,7 @@ class CardsGrid extends Component {
       <div>
         <h1>CardsGrid</h1>
         {this.props.allVideogames?.map((game) => {
-          return <h1>{game.name}</h1>;
+          return <Card id={game.id} name={game.name} img={game.img} />;
         })}
       </div>
     );
