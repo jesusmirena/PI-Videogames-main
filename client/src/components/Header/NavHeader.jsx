@@ -7,6 +7,7 @@ class NavHeader extends Component {
   getAllVideogames = () => {
     this.props.getVideogames();
   };
+
   componentDidMount() {
     this.getAllVideogames();
   }
