@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./navBar.module.scss";
 import Dropdown from "./Dropdown";
 import { GrMenu } from "react-icons/gr";
@@ -20,7 +20,7 @@ export default function Navbar({
 
   return (
     <div>
-      <nav className={styles.navigation}>
+      <aside className={styles.navigation}>
         <select
           className={styles.filters}
           onChange={(e) => handleSortByName(e)}
@@ -98,7 +98,7 @@ export default function Navbar({
             Existente
           </option>
         </select>
-      </nav>
+      </aside>
     </div>
   );
 }

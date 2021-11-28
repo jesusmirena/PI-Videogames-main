@@ -1,0 +1,21 @@
+.mainContainer {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+.sidebar {
+  height: 100%;
+  background-color: black;
+}
+.videogameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  gap: 3rem;
+  padding: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .videogameGrid {
+    grid-template-columns: 100%;
+  }
+}

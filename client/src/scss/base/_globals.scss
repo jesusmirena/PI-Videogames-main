@@ -5,41 +5,42 @@
 }
 body {
   font-size: 1rem;
-  background-color: $white;
+  background-color: $black;
 }
 p {
   font-size: 1.2rem;
   font-family: $fuenteParrafos;
-  color: $black;
+  color: $white;
 }
 a {
   font-family: $fuenteSecundaria;
   text-decoration: none;
 }
-h1, a {
+h1,
+a {
   color: $white;
 }
-img{
-    max-width: 100%;
+img {
+  max-width: 100%;
 }
-h1{
-    font-family: $fuentePrincipal;
-    font-size: 2.4rem;
+h1 {
+  font-family: $fuentePrincipal;
+  font-size: 2.4rem;
 }
-h2{
-    font-family: $fuenteSecundaria;
-    font-weight: $bold;
-    font-size: 2rem;
+h2 {
+  font-family: $fuenteSecundaria;
+  font-weight: $bold;
+  font-size: 2rem;
 }
-h3{
-    font-family: $fuenteSecundaria;
-    font-size: 1.8rem;
+h3 {
+  font-family: $fuenteSecundaria;
+  font-size: 1.8rem;
 }
-.container{
-    max-width: 120rem;
-    width: 90%;
-    margin: 0 auto;
+.container {
+  max-width: 120rem;
+  width: 90%;
+  margin: 0 auto;
 }
-.center{
-    justify-content: center;
+.center {
+  justify-content: center;
 }

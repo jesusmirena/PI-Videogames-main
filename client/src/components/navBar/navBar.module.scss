@@ -1,10 +1,6 @@
 .navigation {
-  background: #000;
-  height: 80px;
   display: flex;
-  justify-content: space-between;
-  padding: 0.5rem calc((100vw - 1000px) / 2);
-  z-index: 10;
+  flex-direction: column;
 }
 .filters {
   font-family: "Ek Mukta";
@@ -19,14 +15,13 @@
   border: 3px solid transparent;
   transition: 0.2s ease-in-out;
   .options {
-	background-color: white;
-	color: gray;
-	width: 310px;
-	padding: 10px 15px;
-	height: 20px;
-	cursor: pointer;
-    
-}
+    background-color: white;
+    color: gray;
+    width: 310px;
+    padding: 10px 15px;
+    height: 20px;
+    cursor: pointer;
+  }
   &:hover {
     background-color: #ff4f5d;
     cursor: pointer;
@@ -39,6 +34,3 @@
     color: #000;
   }
 }
-
-
-
