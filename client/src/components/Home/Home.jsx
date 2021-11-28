@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getVideogames,
   filterByGenre,
@@ -10,15 +10,14 @@ import {
   orderByRating,
   getPlatforms,
   filterByPlatform,
-} from "../actions";
-import { Link } from "react-router-dom";
-import Videogame from "./Videogame";
-import SearchBar from "./SearchBar";
-import imagen from "../../../videogame.png";
-import Header from "./header/header";
-import Navbar from "./navBar/Navbar";
+} from "../../actions";
+
+import Videogame from "../Videogame";
+import SearchBar from "../SearchBar";
+import Header from "../header/header";
+import Navbar from "../navBar/Navbar";
 import styles from "./VideogamesGrid.module.scss";
-import Pagination from "./Pagination";
+import Pagination from "../Pagination";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -46,8 +45,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getVideogames());
   }, []);
-  
-  
+
   function handleFilterGenre(e) {
     e.preventDefault();
     dispatch(filterByGenre(e.target.value));
@@ -81,35 +79,41 @@ export default function Home() {
     <div>
       <Header title="New and trending" />
       <div>
-        <Navbar
-          handleFilterGenre={handleFilterGenre}
-          handleFilterPlatform={handleFilterPlatform}
-          handleFilterCreated={handleFilterCreated}
-          handleSortByName={handleSortByName}
-          handleSortByRating={handleSortByRating}
-        />
         <SearchBar />
         <Pagination
           videogamesPerPage={videogamesPerPage}
           allVideogames={allVideogames.length}
           pagination={pagination}
         />
-        <ul className={styles.videogameGrid}>
-          {currentVideogames &&
-            currentVideogames.map((v) => {
-              return (
-                <Videogame
-                  id={v.id}
-                  name={v.name}
-                  key={v.id}
-                  img={v.img}
-                  genres={v.genres}
-                  rating={v.rating}
-                  platforms={v.platforms}
-                />
-              );
-            })}
-        </ul>
+        <div className={styles.mainContainer}>
+          <div className={styles.sidebar}>
+            <Navbar
+              handleFilterGenre={handleFilterGenre}
+              handleFilterPlatform={handleFilterPlatform}
+              handleFilterCreated={handleFilterCreated}
+              handleSortByName={handleSortByName}
+              handleSortByRating={handleSortByRating}
+            />
+          </div>
+          <div>
+            <ul className={styles.videogameGrid}>
+              {currentVideogames &&
+                currentVideogames.map((v) => {
+                  return (
+                    <Videogame
+                      id={v.id}
+                      name={v.name}
+                      key={v.id}
+                      img={v.img}
+                      genres={v.genres}
+                      rating={v.rating}
+                      platforms={v.platforms}
+                    />
+                  );
+                })}
+            </ul>
+          </div>
+        </div>
         <Pagination
           videogamesPerPage={videogamesPerPage}
           allVideogames={allVideogames.length}
