@@ -8,9 +8,7 @@ const router = Router();
 
 const getApiInfo = async () => {
   var games = [];
-  const apiUrl1 = axios.get(
-    `https://api.rawg.io/api/games?key=${API_KEY}`
-  );
+  const apiUrl1 = axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
   const apiUrl2 = axios.get(
     `https://api.rawg.io/api/games?key=${API_KEY}&page=2`
   );
@@ -23,72 +21,34 @@ const getApiInfo = async () => {
   const apiUrl5 = axios.get(
     `https://api.rawg.io/api/games?key=${API_KEY}&page=5`
   );
-  // Promesas
-  // let result = Promise.all([apiUrl1,apiUrl2,apiUrl3,apiUrl4,apiUrl5])
-  // .then((resolve)=>{
-  //   let [apiUrl1,apiUrl2,apiUrl3,apiUrl4,apiUrl5] = resolve
-  //   games= [...apiUrl1.results,...apiUrl2.results,...apiUrl3.results,...apiUrl4.results,...apiUrl5.results].map(
-  //     (v) => {
-  //       const plataformas = v.platforms.map((g) => g.platform);
-  //     return {
-  //       id: v.id,
-  //       name: v.name,
-  //       img: v.background_image,
-  //       description: v.description,
-  //       released: v.released,
-  //       rating: v.rating,
-  //       platforms: plataformas,
-  //       genres: v.genres,
-  //     };
-  //   )
-  // })
 
-return Promise.all([apiUrl1,apiUrl2,apiUrl3,apiUrl4,apiUrl5])
-  .then((resolve)=>{
-    
-    let [apiUrl1,apiUrl2,apiUrl3,apiUrl4,apiUrl5] = resolve
+  return Promise.all([apiUrl1, apiUrl2, apiUrl3, apiUrl4, apiUrl5])
+    .then((resolve) => {
+      let [apiUrl1, apiUrl2, apiUrl3, apiUrl4, apiUrl5] = resolve;
 
-    games = [...apiUrl1.data.results,...apiUrl2.data.results,...apiUrl3.data.results,...apiUrl4.data.results,...apiUrl5.data.results].map(
-    (v)=>{
-      const plataformas = v.platforms.map((g) => g.platform);
-      return{
-        id: v.id,
-        name: v.name,
-        img: v.background_image,
-        description: v.description,
-        released: v.released,
-        rating: v.rating,
-        platforms: plataformas,
-        genres: v.genres,
-      }
-    }
-    )
-   return games
-  })
-  .catch((err) => console.log(err));
-}
-//   games = apiUrl1.data.results.concat(
-//     apiUrl2.data.results,
-//     apiUrl3.data.results,
-//     apiUrl4.data.results,
-//     apiUrl5.data.results
-//   );
-
-//   const apiInfo = await games.map((v) => {
-//     const plataformas = v.platforms.map((g) => g.platform);
-//     return {
-//       id: v.id,
-//       name: v.name,
-//       img: v.background_image,
-//       description: v.description,
-//       released: v.released,
-//       rating: v.rating,
-//       platforms: plataformas,
-//       genres: v.genres,
-//     };
-//   });
-//   return apiInfo;
-// };
+      games = [
+        ...apiUrl1.data.results,
+        ...apiUrl2.data.results,
+        ...apiUrl3.data.results,
+        ...apiUrl4.data.results,
+        ...apiUrl5.data.results,
+      ].map((v) => {
+        const plataformas = v.platforms.map((g) => g.platform);
+        return {
+          id: v.id,
+          name: v.name,
+          img: v.background_image,
+          description: v.description,
+          released: v.released,
+          rating: v.rating,
+          platforms: plataformas,
+          genres: v.genres,
+        };
+      });
+      return games;
+    })
+    .catch((err) => console.log(err));
+};
 
 const getDbInfo = async () => {
   return await Videogame.findAll({
@@ -153,6 +113,14 @@ router.get("/genres", async (req, res) => {
   });
   const allGenres = await Genre.findAll();
   res.status(200).send(allGenres);
+});
+
+router.get("/genres/:name", async (req, res) => {
+  const { name } = req.params;
+  const gamesByGenre = await axios.get(
+    `https://api.rawg.io/api/games?genres=${name}&key=${API_KEY}`
+  );
+  return res.json(gamesByGenre.data);
 });
 
 //videogame
