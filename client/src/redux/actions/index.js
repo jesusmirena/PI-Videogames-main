@@ -1,4 +1,5 @@
 import axios from "axios";
+import { FILTER_BY_PLATFORM } from "../actionNames/ActionNames";
 
 export function getVideogames() {
   return async function (dispatch) {
@@ -29,9 +30,9 @@ export function getNameVideogames(name) {
 }
 export function getVideogameDetail(id) {
   return async function (dispatch) {
-      const response = await axios.get(`http://localhost:3001/videogame/${id}`);
-      dispatch({ type: "GET_VIDEOGAME_DETAIL", payload: response.data });
-  }
+    const response = await axios.get(`http://localhost:3001/videogame/${id}`);
+    dispatch({ type: "GET_VIDEOGAME_DETAIL", payload: response.data });
+  };
 }
 export function getGenres() {
   return async function (dispatch) {
@@ -74,9 +75,19 @@ export function orderByRating(payload) {
     payload,
   };
 }
-export function getPlatforms(){
-	return async function(dispatch){
-		const json = await axios.get(`http://localhost:3001/platforms`);
-		return dispatch({type: "GET_PLATFORMS", payload: json.data});
-	}
+export function getPlatforms() {
+  return async function (dispatch) {
+    const json = await axios.get(`http://localhost:3001/platforms`);
+    return dispatch({ type: "GET_PLATFORMS", payload: json.data });
+  };
+}
+
+export function getFilterByPlatforms(id) {
+  return async function (dispatch) {
+    const json = await axios.get(`http://localhost:3001/platforms/${id}`);
+    const info = json.data;
+    const mapeados = info.results;
+
+    return dispatch({ type: FILTER_BY_PLATFORM, payload: mapeados });
+  };
 }

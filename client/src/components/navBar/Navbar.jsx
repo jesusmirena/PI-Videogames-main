@@ -1,9 +1,6 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getFilterByPlatforms } from "../../redux/actions";
 import styles from "./navBar.module.scss";
-import Dropdown from "./Dropdown";
-import { GrMenu } from "react-icons/gr";
-import { FiX } from "react-icons/fi";
 
 export default function Navbar({
   handleFilterGenre,
@@ -11,12 +8,13 @@ export default function Navbar({
   handleSortByName,
   handleSortByRating,
 }) {
+  const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
-  // const [click, setClick] = useState(false);
+  const platforms = useSelector((state) => state.platforms);
 
-  // function handleClick() {
-  //   setClick(!click);
-  // }
+  function handleFilterByPlatforms(e) {
+    dispatch(getFilterByPlatforms(e.target.value));
+  }
 
   return (
     <div>
@@ -81,6 +79,33 @@ export default function Navbar({
                 value={genre.name}
               >
                 {genre.name}
+              </option>
+            ))}
+        </select>
+        <select
+          className={styles.filters}
+          onChange={(e) => handleFilterByPlatforms(e)}
+          name="platforms"
+        >
+          <option
+            className={styles.options}
+            selected={true}
+            disabled="disabled"
+            value=""
+          >
+            Choose a platform
+          </option>
+          <option className={styles.options} value="All">
+            Todos
+          </option>
+          {platforms &&
+            platforms.map((platform) => (
+              <option
+                className={styles.options}
+                key={platform.id}
+                value={platform.id}
+              >
+                {platform.name}
               </option>
             ))}
         </select>

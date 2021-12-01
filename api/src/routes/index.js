@@ -84,19 +84,30 @@ router.get("/platforms", async (req, res) => {
       `https://api.rawg.io/api/platforms?key=${API_KEY}`
     );
     const plataformas = platformsApi.data.results;
-    plataformas.forEach(async (v) => {
-      await Platform.findOrCreate({
-        where: {
-          name: v.name,
-        },
-      });
-    });
-    const platformsDataBase = await Platform.findAll();
-    res.json(platformsDataBase);
+
+    // plataformas.forEach(async (v) => {
+    //   await Platform.findOrCreate({
+    //     where: {
+    //       name: v.name,
+    //     },
+    //   });
+    // });
+    // const platformsDataBase = await Platform.findAll();
+    res.json(plataformas);
   } catch (err) {
     res.send(err);
   }
 });
+//filter by platform
+router.get("/platforms/:id", async (req, res) => {
+  const { id } = req.params;
+  const gamesByPlatform = await axios.get(
+    `https://api.rawg.io/api/games?platforms=${id}&key=${API_KEY}`
+  );
+  console.log("AJAAAAAA", gamesByPlatform.data);
+  return res.json(gamesByPlatform.data);
+});
+
 //Genres
 
 router.get("/genres", async (req, res) => {
@@ -115,6 +126,7 @@ router.get("/genres", async (req, res) => {
   res.status(200).send(allGenres);
 });
 
+//Filter by Genre
 router.get("/genres/:name", async (req, res) => {
   const { name } = req.params;
   const gamesByGenre = await axios.get(

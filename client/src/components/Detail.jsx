@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getVideogameDetail } from "../actions/index";
+import { getVideogameDetail } from "../redux/actions/index";
 import styles from "./Detail.module.scss";
 import { Spinner } from "./spinner";
 
@@ -45,7 +45,8 @@ export default function Detail(props) {
               <strong>Platforms:</strong>
               {videogameDetail.id?.length > 7
                 ? videogameDetail.platforms?.map((p) => p.name).join(", ")
-                : videogameDetail.platforms?.map((p) => p.platform.name)
+                : videogameDetail.platforms
+                    ?.map((p) => p.platform.name)
                     .join(", ")}
             </p>
             <p>

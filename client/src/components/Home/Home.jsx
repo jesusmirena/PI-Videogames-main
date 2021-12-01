@@ -9,8 +9,7 @@ import {
   orderByName,
   orderByRating,
   getPlatforms,
-  filterByPlatform,
-} from "../../actions";
+} from "../../redux/actions/index";
 
 import Videogame from "../Videogame";
 import SearchBar from "../SearchBar";
@@ -33,7 +32,6 @@ export default function Home() {
   );
 
   const [order, setOrder] = useState("");
-  const [click, setClick] = useState(false);
 
   useEffect(() => {
     dispatch(getGenres());
@@ -52,12 +50,7 @@ export default function Home() {
     setCurrentPage(1);
     setOrder(e.target.value);
   }
-  function handleFilterPlatform(e) {
-    e.preventDefault();
-    dispatch(filterByPlatform(e.target.value));
-    setCurrentPage(1);
-    setOrder(e.target.value);
-  }
+
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
@@ -89,7 +82,6 @@ export default function Home() {
           <div className={styles.sidebar}>
             <Navbar
               handleFilterGenre={handleFilterGenre}
-              handleFilterPlatform={handleFilterPlatform}
               handleFilterCreated={handleFilterCreated}
               handleSortByName={handleSortByName}
               handleSortByRating={handleSortByRating}
@@ -99,8 +91,10 @@ export default function Home() {
             <ul className={styles.videogameGrid}>
               {currentVideogames &&
                 currentVideogames.map((v) => {
+                  // console.log("imagen", v.img);
                   return (
                     <Videogame
+                      game={v}
                       id={v.id}
                       name={v.name}
                       key={v.id}

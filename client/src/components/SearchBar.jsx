@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getNameVideogames } from "../actions";
+import { getNameVideogames } from "../redux/actions/index";
 import { FaSearch } from "react-icons/fa";
 import styles from "./SearchBar.module.scss";
 
@@ -11,12 +11,11 @@ export default function SearchBar() {
   function handleChange(e) {
     e.preventDefault();
     setName(e.target.value);
-
   }
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getNameVideogames(name));
-    setName("")
+    setName("");
   }
 
   return (
@@ -34,7 +33,7 @@ export default function SearchBar() {
             placeholder="Search..."
           />
           <button className={styles.searchButton} type="submit">
-          <FaSearch size={20} />
+            <FaSearch size={20} />
           </button>
         </div>
       </form>

@@ -1,0 +1,1 @@
+export const FILTER_BY_PLATFORM = "FILTER_BY_PLATFORM";

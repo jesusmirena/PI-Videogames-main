@@ -1,3 +1,5 @@
+import { FILTER_BY_PLATFORM } from "../actionNames/ActionNames";
+
 const initialState = {
   videogames: [],
   allvideogames: [],
@@ -30,6 +32,11 @@ function rootReducer(state = initialState, action) {
         ...state,
       };
     }
+    case FILTER_BY_PLATFORM:
+      return {
+        ...state,
+        videogames: action.payload,
+      };
     case "FILTER_BY_GENRE":
       // state.swap = false;
       if ((state.swap = true)) {
