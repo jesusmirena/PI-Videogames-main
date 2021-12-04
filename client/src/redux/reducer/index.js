@@ -9,7 +9,6 @@ const initialState = {
   platforms: [],
   videogameDetail: [],
   genres: [],
-  swap: true,
 };
 
 function rootReducer(state = initialState, action) {
@@ -45,61 +44,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         videogames: action.payload,
       };
-    // case "FILTER_BY_GENRE":
-    //   // state.swap = false;
-    //   if ((state.swap = true)) {
-    //     const filtrado =
-    //       action.payload === "All"
-    //         ? state.allvideogames
-    //         : state.videogames.filter((g) => {
-    //             return g.genres.find((g) => {
-    //               return g.name === action.payload;
-    //             });
-    //           });
-    //     state.swap = false;
-    //     return {
-    //       ...state,
-    //       videogames: filtrado,
-    //     };
-    //   } else {
-    //     const filtrado =
-    //       action.payload === "All"
-    //         ? state.allvideogames
-    //         : state.allvideogames.filter((g) => {
-    //             return g.genres.find((g) => {
-    //               return g.name === action.payload;
-    //             });
-    //           });
-    //     state.swap = true;
-    //     return {
-    //       ...state,
-    //       videogames: filtrado,
-    //     };
-    //   }
+
     case "FILTER_CREATED":
-      if (state.swap === false) {
-        const createdFilter =
-          action.payload === "Created"
-            ? state.videogames.filter((v) => v.id.length > 10)
-            : state.videogames.filter((v) => v.id.toString().length < 6);
-        state.swap = true;
-        return {
-          ...state,
-          videogames:
-            action.payload === "All" ? state.allvideogames : createdFilter,
-        };
-      } else {
-        const createdFilter =
-          action.payload === "Created"
-            ? state.allvideogames.filter((v) => v.id.length > 10)
-            : state.allvideogames.filter((v) => v.id.toString().length < 6);
-        state.swap = false;
-        return {
-          ...state,
-          videogames:
-            action.payload === "All" ? state.allvideogames : createdFilter,
-        };
-      }
+      const createdFilter =
+        action.payload === "Created"
+          ? state.allvideogames.filter((v) => v.id.length > 10)
+          : state.allvideogames.filter((v) => v.id.toString().length < 6);
+
+      return {
+        ...state,
+        videogames:
+          action.payload === "All" ? state.allvideogames : createdFilter,
+      };
+
     case "GET_NAME_VIDEOGAMES":
       return {
         ...state,

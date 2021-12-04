@@ -3,7 +3,6 @@ import { getFilterByPlatforms, getFilterByGenres } from "../../redux/actions";
 import styles from "./navBar.module.scss";
 
 export default function Navbar({
-  handleFilterGenre,
   handleFilterCreated,
   handleSortByName,
   handleSortByRating,
@@ -92,9 +91,6 @@ export default function Navbar({
             value=""
           >
             Choose a platform
-          </option>
-          <option className={styles.options} value="All">
-            Todos
           </option>
           {platforms &&
             platforms.map((platform) => (
