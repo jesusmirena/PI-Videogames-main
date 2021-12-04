@@ -2,6 +2,8 @@ import axios from "axios";
 import {
   FILTER_BY_GENRE,
   FILTER_BY_PLATFORM,
+  RESET_DETAILS,
+  RESET_FILTERS,
 } from "../actionNames/ActionNames";
 
 export function getVideogames() {
@@ -53,13 +55,18 @@ export function postVideogames(payload) {
   };
 }
 
-// export function filterByGenre(payload) {
-//   return {
-//     type: "FILTER_BY_GENRE",
-//     payload,
-//   };
-// }
-
+export function resetFilters(payload) {
+  return {
+    type: RESET_FILTERS,
+    payload,
+  };
+}
+export function resetVideogameDetail(payload) {
+  return {
+    type: RESET_DETAILS,
+    payload,
+  };
+}
 export function filterCreated(payload) {
   return {
     type: "FILTER_CREATED",

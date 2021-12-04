@@ -1,16 +1,14 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getVideogames } from "../../redux/actions/index";
+import { resetFilters } from "../../redux/actions/index";
 import styles from "./NavHeader.module.scss";
+
 export default function NavHeader() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getVideogames());
-  }, []);
+
   function handleClick(e) {
     e.preventDefault();
-    dispatch(getVideogames());
+    dispatch(resetFilters());
   }
   return (
     <div className={styles.barra}>

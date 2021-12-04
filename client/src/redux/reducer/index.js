@@ -1,6 +1,8 @@
 import {
   FILTER_BY_GENRE,
   FILTER_BY_PLATFORM,
+  RESET_DETAILS,
+  RESET_FILTERS,
 } from "../actionNames/ActionNames";
 
 const initialState = {
@@ -18,6 +20,16 @@ function rootReducer(state = initialState, action) {
         ...state,
         videogames: action.payload,
         allvideogames: action.payload,
+      };
+    case RESET_FILTERS:
+      return {
+        ...state,
+        videogames: state.allvideogames,
+      };
+    case RESET_DETAILS:
+      return {
+        ...state,
+        videogameDetail: [],
       };
     case "GET_GENRES":
       return {

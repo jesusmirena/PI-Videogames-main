@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilterByPlatforms, getFilterByGenres } from "../../redux/actions";
 import styles from "./navBar.module.scss";
@@ -20,7 +21,9 @@ export default function Navbar({
       <aside className={styles.navigation}>
         <select
           className={styles.filters}
-          onChange={(e) => handleSortByName(e)}
+          onChange={(e) => {
+            handleSortByName(e);
+          }}
         >
           <option className={styles.options} selected="false" disabled>
             Order
@@ -34,7 +37,9 @@ export default function Navbar({
         </select>
         <select
           className={styles.filters}
-          onChange={(e) => handleSortByRating(e)}
+          onChange={(e) => {
+            handleSortByRating(e);
+          }}
         >
           <option
             className={styles.options}
@@ -55,9 +60,13 @@ export default function Navbar({
           </option>
         </select>
         <select
-          className={styles.filters}
-          onChange={(e) => handleFilter(getFilterByGenres, e)}
           name="genres"
+          className={styles.filters}
+          onChange={(e) => {
+            {
+              handleFilter(getFilterByGenres, e);
+            }
+          }}
         >
           <option
             className={styles.options}
@@ -81,7 +90,9 @@ export default function Navbar({
         </select>
         <select
           className={styles.filters}
-          onChange={(e) => handleFilter(getFilterByPlatforms, e)}
+          onChange={(e) => {
+            handleFilter(getFilterByPlatforms, e);
+          }}
           name="platforms"
         >
           <option
@@ -105,7 +116,9 @@ export default function Navbar({
         </select>
         <select
           className={styles.filters}
-          onChange={(e) => handleFilterCreated(e)}
+          onChange={(e) => {
+            handleFilterCreated(e);
+          }}
         >
           <option className={styles.options} value="All">
             Todos

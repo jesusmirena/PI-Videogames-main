@@ -9,6 +9,7 @@ import {
   orderByName,
   orderByRating,
   getPlatforms,
+  resetVideogameDetail,
 } from "../../redux/actions/index";
 
 import Videogame from "../Videogame/Videogame";
@@ -33,23 +34,9 @@ export default function Home() {
 
   const [order, setOrder] = useState("");
 
-  useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getPlatforms());
-  }, []);
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  useEffect(() => {
-    dispatch(getVideogames());
-  }, []);
-
-  function handleFilterGenre(e) {
-    e.preventDefault();
-    dispatch(filterByGenre(e.target.value));
-    setCurrentPage(1);
-    setOrder(e.target.value);
-  }
 
   function handleFilterCreated(e) {
     e.preventDefault();
@@ -67,6 +54,12 @@ export default function Home() {
     setCurrentPage(1);
     setOrder(e.target.value);
   }
+  useEffect(() => {
+    dispatch(getVideogames());
+    dispatch(getGenres());
+    dispatch(getPlatforms());
+    dispatch(resetVideogameDetail());
+  }, []);
 
   return (
     <div>
@@ -81,7 +74,6 @@ export default function Home() {
         <div className={styles.mainContainer}>
           <div className={styles.sidebar}>
             <Navbar
-              handleFilterGenre={handleFilterGenre}
               handleFilterCreated={handleFilterCreated}
               handleSortByName={handleSortByName}
               handleSortByRating={handleSortByRating}
@@ -115,4 +107,3 @@ export default function Home() {
     </div>
   );
 }
-// export default connect((store)=> ({videogames: store.}) )()
