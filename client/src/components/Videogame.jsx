@@ -30,7 +30,7 @@ export default function Videogame({
             <h2 className={styles.Title}>{name}</h2>
             <p className={styles.Genres}>Genres: {genero.join(", ")}</p>
             <p className={styles.Rating}>Rating: {rating}</p>
-            <p className={styles.Genres}>Platforms: {plataformas}</p>
+            <p className={styles.Genres}>Platforms: {plataformas.join(", ")}</p>
           </Link>
         </div>
       </div>

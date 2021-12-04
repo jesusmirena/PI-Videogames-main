@@ -86,8 +86,8 @@ export function getFilterByPlatforms(id) {
   return async function (dispatch) {
     const json = await axios.get(`http://localhost:3001/platforms/${id}`);
     const info = json.data;
-    const mapeados = info.results;
-
-    return dispatch({ type: FILTER_BY_PLATFORM, payload: mapeados });
+    // const mapeados = info.results;
+    console.log("JSOONONONO", json.data);
+    return dispatch({ type: FILTER_BY_PLATFORM, payload: json.data });
   };
 }

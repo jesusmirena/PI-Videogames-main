@@ -68,9 +68,7 @@ export default function Navbar({
           >
             Choose a genre
           </option>
-          <option className={styles.options} value="All">
-            Todos
-          </option>
+
           {genres &&
             genres.map((genre) => (
               <option

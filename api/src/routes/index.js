@@ -104,8 +104,23 @@ router.get("/platforms/:id", async (req, res) => {
   const gamesByPlatform = await axios.get(
     `https://api.rawg.io/api/games?platforms=${id}&key=${API_KEY}`
   );
-  console.log("AJAAAAAA", gamesByPlatform.data);
-  return res.json(gamesByPlatform.data);
+  const info = gamesByPlatform.data.results;
+
+  const mapeados = info?.map((v) => {
+    const plataformas = v.platforms.map((g) => g.platform);
+    return {
+      id: v.id,
+      name: v.name,
+      img: v.background_image,
+      description: v.description,
+      released: v.released,
+      rating: v.rating,
+      platforms: plataformas,
+      genres: v.genres,
+    };
+  });
+
+  return res.json(mapeados);
 });
 
 //Genres
@@ -132,7 +147,23 @@ router.get("/genres/:name", async (req, res) => {
   const gamesByGenre = await axios.get(
     `https://api.rawg.io/api/games?genres=${name}&key=${API_KEY}`
   );
-  return res.json(gamesByGenre.data);
+  const info = gamesByGenre.data.results;
+
+  const mapeados = info?.map((v) => {
+    const plataformas = v.platforms.map((g) => g.platform);
+    return {
+      id: v.id,
+      name: v.name,
+      img: v.background_image,
+      description: v.description,
+      released: v.released,
+      rating: v.rating,
+      platforms: plataformas,
+      genres: v.genres,
+    };
+  });
+
+  return res.json(mapeados);
 });
 
 //videogame
