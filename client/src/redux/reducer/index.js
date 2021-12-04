@@ -1,4 +1,7 @@
-import { FILTER_BY_PLATFORM } from "../actionNames/ActionNames";
+import {
+  FILTER_BY_GENRE,
+  FILTER_BY_PLATFORM,
+} from "../actionNames/ActionNames";
 
 const initialState = {
   videogames: [],
@@ -37,37 +40,42 @@ function rootReducer(state = initialState, action) {
         ...state,
         videogames: action.payload,
       };
-    case "FILTER_BY_GENRE":
-      // state.swap = false;
-      if ((state.swap = true)) {
-        const filtrado =
-          action.payload === "All"
-            ? state.allvideogames
-            : state.videogames.filter((g) => {
-                return g.genres.find((g) => {
-                  return g.name === action.payload;
-                });
-              });
-        state.swap = false;
-        return {
-          ...state,
-          videogames: filtrado,
-        };
-      } else {
-        const filtrado =
-          action.payload === "All"
-            ? state.allvideogames
-            : state.allvideogames.filter((g) => {
-                return g.genres.find((g) => {
-                  return g.name === action.payload;
-                });
-              });
-        state.swap = true;
-        return {
-          ...state,
-          videogames: filtrado,
-        };
-      }
+    case FILTER_BY_GENRE:
+      return {
+        ...state,
+        videogames: action.payload,
+      };
+    // case "FILTER_BY_GENRE":
+    //   // state.swap = false;
+    //   if ((state.swap = true)) {
+    //     const filtrado =
+    //       action.payload === "All"
+    //         ? state.allvideogames
+    //         : state.videogames.filter((g) => {
+    //             return g.genres.find((g) => {
+    //               return g.name === action.payload;
+    //             });
+    //           });
+    //     state.swap = false;
+    //     return {
+    //       ...state,
+    //       videogames: filtrado,
+    //     };
+    //   } else {
+    //     const filtrado =
+    //       action.payload === "All"
+    //         ? state.allvideogames
+    //         : state.allvideogames.filter((g) => {
+    //             return g.genres.find((g) => {
+    //               return g.name === action.payload;
+    //             });
+    //           });
+    //     state.swap = true;
+    //     return {
+    //       ...state,
+    //       videogames: filtrado,
+    //     };
+    //   }
     case "FILTER_CREATED":
       if (state.swap === false) {
         const createdFilter =

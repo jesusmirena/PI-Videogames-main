@@ -1,5 +1,8 @@
 import axios from "axios";
-import { FILTER_BY_PLATFORM } from "../actionNames/ActionNames";
+import {
+  FILTER_BY_GENRE,
+  FILTER_BY_PLATFORM,
+} from "../actionNames/ActionNames";
 
 export function getVideogames() {
   return async function (dispatch) {
@@ -50,12 +53,12 @@ export function postVideogames(payload) {
   };
 }
 
-export function filterByGenre(payload) {
-  return {
-    type: "FILTER_BY_GENRE",
-    payload,
-  };
-}
+// export function filterByGenre(payload) {
+//   return {
+//     type: "FILTER_BY_GENRE",
+//     payload,
+//   };
+// }
 
 export function filterCreated(payload) {
   return {
@@ -85,9 +88,13 @@ export function getPlatforms() {
 export function getFilterByPlatforms(id) {
   return async function (dispatch) {
     const json = await axios.get(`http://localhost:3001/platforms/${id}`);
-    const info = json.data;
-    // const mapeados = info.results;
-    console.log("JSOONONONO", json.data);
     return dispatch({ type: FILTER_BY_PLATFORM, payload: json.data });
+  };
+}
+
+export function getFilterByGenres(name) {
+  return async function (dispatch) {
+    const json = await axios.get(`http://localhost:3001/genres/${name}`);
+    return dispatch({ type: FILTER_BY_GENRE, payload: json.data });
   };
 }
