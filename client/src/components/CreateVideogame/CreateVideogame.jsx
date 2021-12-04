@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getGenres, postVideogames } from "../redux/actions/index";
+import { getGenres, postVideogames } from "../../redux/actions/index";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./_CreateVideogame.module.scss";
 

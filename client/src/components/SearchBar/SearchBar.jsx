@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getNameVideogames } from "../redux/actions/index";
+import { getNameVideogames } from "../../redux/actions/index";
 import { FaSearch } from "react-icons/fa";
 import styles from "./SearchBar.module.scss";
 

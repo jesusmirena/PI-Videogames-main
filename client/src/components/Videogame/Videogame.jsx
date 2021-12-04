@@ -9,7 +9,6 @@ export default function Videogame({
   id,
   rating,
   platforms,
-  game,
 }) {
   let genero = genres.map((e) => e.name);
   let plataformas = platforms?.map((p) => p.name);
@@ -18,11 +17,7 @@ export default function Videogame({
     <li id={id} className={styles.Videogame}>
       <div className={`${styles.cardItem} ${styles.CardItemUniqueEffect}`}>
         <img
-          src={
-            img ||
-            game.background_image ||
-            "https://m.media-amazon.com/images/I/611fcGzpVUL.jpg"
-          }
+          src={img || "https://m.media-amazon.com/images/I/611fcGzpVUL.jpg"}
           alt="Image not found"
         />
         <div className={styles.Content}>

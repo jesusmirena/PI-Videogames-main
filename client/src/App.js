@@ -1,9 +1,9 @@
 import "./scss/App.scss";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import Home from "./components/Home/Home";
-import CreateVideogame from "./components/CreateVideogame";
-import Detail from "./components/Detail";
+import CreateVideogame from "./components/CreateVideogame/CreateVideogame";
+import Detail from "./components/Detail/Detail";
 
 function App() {
   return (

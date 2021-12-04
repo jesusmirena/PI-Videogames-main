@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getFilterByPlatforms } from "../../redux/actions";
+import { getFilterByPlatforms, getFilterByGenres } from "../../redux/actions";
 import styles from "./navBar.module.scss";
 
 export default function Navbar({
@@ -12,8 +12,8 @@ export default function Navbar({
   const genres = useSelector((state) => state.genres);
   const platforms = useSelector((state) => state.platforms);
 
-  function handleFilterByPlatforms(e) {
-    dispatch(getFilterByPlatforms(e.target.value));
+  function handleFilter(funcion, e) {
+    dispatch(funcion(e.target.value));
   }
 
   return (
@@ -57,7 +57,7 @@ export default function Navbar({
         </select>
         <select
           className={styles.filters}
-          onChange={(e) => handleFilterGenre(e)}
+          onChange={(e) => handleFilter(getFilterByGenres, e)}
           name="genres"
         >
           <option
@@ -74,7 +74,7 @@ export default function Navbar({
               <option
                 className={styles.options}
                 key={genre.id}
-                value={genre.name}
+                value={genre.name.toLowerCase()}
               >
                 {genre.name}
               </option>
@@ -82,7 +82,7 @@ export default function Navbar({
         </select>
         <select
           className={styles.filters}
-          onChange={(e) => handleFilterByPlatforms(e)}
+          onChange={(e) => handleFilter(getFilterByPlatforms, e)}
           name="platforms"
         >
           <option

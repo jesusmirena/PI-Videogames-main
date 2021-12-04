@@ -11,12 +11,12 @@ import {
   getPlatforms,
 } from "../../redux/actions/index";
 
-import Videogame from "../Videogame";
-import SearchBar from "../SearchBar";
+import Videogame from "../Videogame/Videogame";
+import SearchBar from "../SearchBar/SearchBar";
 import Header from "../header/header";
 import Navbar from "../navBar/Navbar";
 import styles from "./VideogamesGrid.module.scss";
-import Pagination from "../Pagination";
+import Pagination from "../Pagination/Pagination";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -91,10 +91,8 @@ export default function Home() {
             <ul className={styles.videogameGrid}>
               {currentVideogames &&
                 currentVideogames.map((v) => {
-                  // console.log("imagen", v.img);
                   return (
                     <Videogame
-                      game={v}
                       id={v.id}
                       name={v.name}
                       key={v.id}
